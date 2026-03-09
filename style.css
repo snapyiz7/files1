@@ -1,0 +1,360 @@
+/* ── VARIABLES ──────────────────────────────── */
+:root {
+  --bg:        #0a0f0d;
+  --panel:     #111a14;
+  --border:    #1f3a22;
+  --accent:    #39ff14;
+  --accent2:   #ff4d00;
+  --text:      #c8e6c9;
+  --muted:     #4a7a4f;
+  --cell-up:   #1a2e1c;
+  --cell-down: #0d1a0f;
+  --cell-mine: #ff4d00;
+  --shadow:    0 0 18px rgba(57,255,20,0.15);
+
+  --c1: #39ff14; /* 1 */
+  --c2: #00cfff; /* 2 */
+  --c3: #ff4d00; /* 3 */
+  --c4: #a855f7; /* 4 */
+  --c5: #ff073a; /* 5 */
+  --c6: #00ffe7; /* 6 */
+  --c7: #fff700; /* 7 */
+  --c8: #888;    /* 8 */
+}
+
+/* ── RESET ───────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── BODY ────────────────────────────────────── */
+body {
+  background:
+    radial-gradient(circle at 20% 50%, rgba(57,255,20,0.05), transparent 60%),
+    linear-gradient(90deg, rgba(57,255,20,0.03) 1px, transparent 1px),
+    linear-gradient(rgba(57,255,20,0.03) 1px, transparent 1px),
+    var(--bg);
+
+  background-size:
+    100% 100%,
+    60px 60px,
+    60px 60px,
+    auto;
+
+  animation: gridMove 40s linear infinite;
+
+  font-family: 'Courier New', Courier, monospace;
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: scroll;
+  position: relative;
+}
+
+
+
+/* Scanline overlay */
+.scanline {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,0.18) 3px,
+    rgba(0,0,0,0.18) 4px
+  );
+  z-index: 100;
+  animation: scanmove 8s linear infinite;
+}
+@keyframes scanmove {
+  from { background-position: 0 0; }
+  to   { background-position: 0 400px; }
+}
+
+/* ── CONTAINER ───────────────────────────────── */
+.container {
+  position: relative;
+  background: var(--panel);
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  padding: 24px 28px 20px;
+  box-shadow: var(--shadow), inset 0 0 40px rgba(0,0,0,0.5);
+  max-width: 98vw;
+}
+
+/* ── HEADER ──────────────────────────────────── */
+header { text-align: center; margin-bottom: 18px; }
+
+.title {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  letter-spacing: 0.35em;
+  color: var(--accent);
+  text-shadow: 0 0 12px var(--accent), 0 0 30px rgba(57,255,20,0.4);
+  animation: flicker 5s infinite;
+}
+
+.subtitle {
+  font-size: 0.7rem;
+  letter-spacing: 0.5em;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+@keyframes flicker {
+  0%,95%,100%  { opacity: 1; }
+  96%          { opacity: 0.7; }
+  97%          { opacity: 1; }
+  98%          { opacity: 0.5; }
+  99%          { opacity: 1; }
+}
+
+/* ── HUD ─────────────────────────────────────── */
+.hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #060e08;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  gap: 12px;
+}
+
+.hud-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 80px;
+}
+
+.hud-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+.hud-value {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--accent2);
+  text-shadow: 0 0 8px var(--accent2);
+  font-variant-numeric: tabular-nums;
+  min-width: 3ch;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+/* ── RESET BUTTON ────────────────────────────── */
+.reset-btn {
+  background: #0a1a0c;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  font-size: 1.8rem;
+  width: 54px;
+  height: 54px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, transform 0.1s;
+  user-select: none;
+}
+.reset-btn:hover  { border-color: var(--accent); }
+.reset-btn:active { transform: scale(0.93); }
+
+/* ── DIFFICULTY BAR ──────────────────────────── */
+.difficulty-bar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.diff-btn {
+  flex: 1;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  padding: 6px 0;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s;
+}
+.diff-btn:hover        { border-color: var(--accent); color: var(--accent); }
+.diff-btn.active       { border-color: var(--accent); color: var(--accent);
+                         background: rgba(57,255,20,0.07);
+                         text-shadow: 0 0 6px var(--accent); }
+
+/* ── BOARD WRAPPER ───────────────────────────── */
+.board-wrapper {
+  overflow: auto;
+  max-width: 90vw;
+  max-height: 70vh;
+}
+
+/* ── BOARD ───────────────────────────────────── */
+.board {
+  display: inline-grid;
+  gap: 2px;
+  padding: 4px;
+  background: #060e08;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+}
+
+/* ── CELL ────────────────────────────────────── */
+.cell {
+  width: 30px;
+  height: 30px;
+  background: var(--cell-up);
+  border: 1px solid #1f3a22;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.08s, transform 0.07s;
+  position: relative;
+  color: transparent;
+}
+
+.cell:hover:not(.revealed):not(.flagged) {
+  background: #223a24;
+  border-color: var(--accent);
+}
+
+.cell:active:not(.revealed):not(.flagged) {
+  transform: scale(0.92);
+}
+
+/* Revealed */
+.cell.revealed {
+  background: var(--cell-down);
+  border-color: #0d200f;
+  cursor: default;
+  color: var(--text);
+}
+
+/* Number colors */
+.cell.n1 { color: var(--c1); text-shadow: 0 0 6px var(--c1); }
+.cell.n2 { color: var(--c2); text-shadow: 0 0 6px var(--c2); }
+.cell.n3 { color: var(--c3); text-shadow: 0 0 6px var(--c3); }
+.cell.n4 { color: var(--c4); text-shadow: 0 0 6px var(--c4); }
+.cell.n5 { color: var(--c5); text-shadow: 0 0 6px var(--c5); }
+.cell.n6 { color: var(--c6); text-shadow: 0 0 6px var(--c6); }
+.cell.n7 { color: var(--c7); text-shadow: 0 0 6px var(--c7); }
+.cell.n8 { color: var(--c8); }
+
+/* Flagged */
+.cell.flagged { color: var(--accent2); font-size: 1rem; }
+
+/* Mine */
+.cell.mine {
+  background: var(--cell-mine) !important;
+  color: #000 !important;
+  font-size: 1rem;
+  animation: pulse-mine 0.5s ease;
+}
+.cell.mine-wrong {
+  background: #5a0000 !important;
+  color: #fff !important;
+}
+
+@keyframes pulse-mine {
+  0%   { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+/* Reveal ripple */
+@keyframes ripple {
+  0%   { opacity: 0.5; transform: scale(0.6); }
+  100% { opacity: 0;   transform: scale(1.8); }
+}
+.cell.revealed::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: rgba(57,255,20,0.15);
+  animation: ripple 0.25s ease-out forwards;
+  pointer-events: none;
+}
+
+/* ── OVERLAY ─────────────────────────────────── */
+.overlay {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: rgba(6,14,8,0.88);
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  z-index: 50;
+  backdrop-filter: blur(3px);
+}
+.overlay.show { display: flex; }
+
+.overlay-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.overlay-icon { font-size: 4rem; animation: bounce 0.6s ease; }
+@keyframes bounce {
+  0%   { transform: scale(0); }
+  70%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.overlay-msg {
+  font-size: clamp(1.4rem, 5vw, 2.2rem);
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  text-shadow: 0 0 20px var(--accent);
+}
+
+.overlay-btn {
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 0.9rem;
+  letter-spacing: 0.25em;
+  padding: 10px 32px;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background 0.15s, color 0.15s;
+}
+.overlay-btn:hover {
+  background: var(--accent);
+  color: #000;
+}
+
+/* Win overlay */
+.overlay.win .overlay-msg { color: var(--accent); }
+
+/* ── FOOTER ──────────────────────────────────── */
+footer {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 0.62rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+/* ── SCROLLBAR ───────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }

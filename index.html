@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buscaminas Yiz</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="scanline"></div>
+
+  <div class="container">
+    <header>
+      <h1 class="title">BUSCAMINAS</h1>
+      <p class="subtitle">ZONA DE PELIGRO</p>
+    </header>
+
+    <div class="hud">
+      <div class="hud-box">
+        <span class="hud-label">💣 MINAS</span>
+        <span class="hud-value" id="mine-count">10</span>
+      </div>
+
+      <button class="reset-btn" id="reset-btn" title="Reiniciar">
+        <span id="face">😐</span>
+      </button>
+
+      <div class="hud-box">
+        <span class="hud-label">⏱ TIEMPO</span>
+        <span class="hud-value" id="timer">000</span>
+      </div>
+    </div>
+
+    <div class="difficulty-bar">
+      <button class="diff-btn active" data-rows="9" data-cols="9" data-mines="10">FÁCIL</button>
+      <button class="diff-btn" data-rows="16" data-cols="16" data-mines="40">MEDIO</button>
+      <button class="diff-btn" data-rows="16" data-cols="30" data-mines="99">DIFÍCIL</button>
+    </div>
+
+    <div class="board-wrapper">
+      <div class="board" id="board"></div>
+    </div>
+
+    <div class="overlay" id="overlay">
+      <div class="overlay-content">
+        <div class="overlay-icon" id="overlay-icon">💥</div>
+        <div class="overlay-msg" id="overlay-msg">GAME OVER</div>
+        <button class="overlay-btn" id="overlay-btn">REINICIAR</button>
+      </div>
+    </div>
+
+    <footer>
+      <p>Click derecho para <strong>bandera 🚩</strong> · Click izquierdo para <strong>revelar</strong></p>
+    </footer>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
