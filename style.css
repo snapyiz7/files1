@@ -358,3 +358,37 @@ footer {
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ── GAME TOOLS ─────────────────────────────── */
+.game-tools {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+/* botones herramientas */
+.tool-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s;
+}
+
+/* hover */
+.tool-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  text-shadow: 0 0 6px var(--accent);
+}
+
+/* activo */
+.tool-btn:active {
+  transform: scale(0.9);
+}

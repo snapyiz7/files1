@@ -11,12 +11,15 @@
   <div class="scanline"></div>
 
   <div class="container">
+
     <header>
       <h1 class="title">BUSCAMINAS</h1>
       <p class="subtitle">ZONA DE PELIGRO</p>
     </header>
 
+    <!-- HUD -->
     <div class="hud">
+
       <div class="hud-box">
         <span class="hud-label">💣 MINAS</span>
         <span class="hud-value" id="mine-count">10</span>
@@ -30,18 +33,39 @@
         <span class="hud-label">⏱ TIEMPO</span>
         <span class="hud-value" id="timer">000</span>
       </div>
+
     </div>
 
+    <!-- BOTONES NUEVOS -->
+    <div class="game-tools">
+
+      <button id="how-btn" class="tool-btn">
+        ❓ Cómo jugar
+      </button>
+
+      <button id="hint-btn" class="tool-btn">
+        💡 Sugerencia
+      </button>
+
+      <button id="pause-btn" class="tool-btn">
+        ⏸ Pausar
+      </button>
+
+    </div>
+
+    <!-- DIFICULTAD -->
     <div class="difficulty-bar">
       <button class="diff-btn active" data-rows="9" data-cols="9" data-mines="10">FÁCIL</button>
       <button class="diff-btn" data-rows="16" data-cols="16" data-mines="40">MEDIO</button>
       <button class="diff-btn" data-rows="16" data-cols="30" data-mines="99">DIFÍCIL</button>
     </div>
 
+    <!-- TABLERO -->
     <div class="board-wrapper">
       <div class="board" id="board"></div>
     </div>
 
+    <!-- OVERLAY -->
     <div class="overlay" id="overlay">
       <div class="overlay-content">
         <div class="overlay-icon" id="overlay-icon">💥</div>
@@ -50,9 +74,15 @@
       </div>
     </div>
 
+    <!-- FOOTER -->
     <footer>
-      <p>Click derecho para <strong>bandera 🚩</strong> · Click izquierdo para <strong>revelar</strong></p>
+      <p>
+        🖱 Click izquierdo = revelar · 
+        🖱 Click derecho = bandera 🚩 · 
+        📱 Mantener presionado = bandera
+      </p>
     </footer>
+
   </div>
 
   <script src="game.js"></script>
